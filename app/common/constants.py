@@ -1,10 +1,10 @@
 from dotenv import load_dotenv
 import os
 
-with open('private.pem', 'r') as file:
+with open('../private.pem', 'r') as file:
     SECRET_KEY = file.read()
 
-with open('public.pem', 'r') as file:
+with open('../public.pem', 'r') as file:
     PUBLIC_KEY = file.read()
 
 

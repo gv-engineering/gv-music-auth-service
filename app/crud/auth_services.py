@@ -4,10 +4,10 @@ from asyncpg.pgproto.pgproto import timedelta
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.crud.crud_base import CRUDBase
-from app.models.user_models import UserModel, RefreshTokensModel, RoleModel
-from app.scheme.refresh_token_scheme import TokenUpdate, TokenCreate
-from app.scheme.auth_scheme import Role, RoleCreate, UserCreate
+from crud.crud_base import CRUDBase
+from models.user_models import UserModel, RefreshTokensModel, RoleModel
+from scheme.refresh_token_scheme import TokenUpdate, TokenCreate
+from scheme.auth_scheme import Role, RoleCreate, UserCreate
 
 
 class UserCrud(CRUDBase[UserModel, UserCreate, UserCreate]):

@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.database.init_bd import Base, engine
+from database.init_bd import Base, engine
 
 
 class UserModel(Base):

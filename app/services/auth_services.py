@@ -9,10 +9,10 @@ from jose import jwt
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from app.common.constants import ACCESS_TOKEN_EXPIRE_MINUTES, SECRET_KEY, ALGORITHM, SECRET_KEY_REGISTER, ALGORITHM_HASH
-from app.crud.auth_services import user_cruds, role_cruds
-from app.models.user_models import UserModel
-from app.scheme.auth_scheme import UserRegister, UserCreate
+from common.constants import ACCESS_TOKEN_EXPIRE_MINUTES, SECRET_KEY, ALGORITHM, SECRET_KEY_REGISTER, ALGORITHM_HASH
+from crud.auth_services import user_cruds, role_cruds
+from models.user_models import UserModel
+from scheme.auth_scheme import UserRegister, UserCreate
 
 
 class AuthService:

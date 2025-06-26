@@ -4,7 +4,6 @@ req.txt
 alembic.ini
 alembic/
 .env
-Dockerfile
 private.pem
 public.pem
 __pycache__/

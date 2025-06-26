@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 import colorama
 import uvicorn
 from fastapi import FastAPI
@@ -7,6 +9,7 @@ from fastapi.security import OAuth2PasswordBearer
 from routs.user_route import router as router_user
 from routs.auth_route import router as router_auth
 
+admin_id = None
 origins = [
     'http://127.0.0.2:8000',
     'http://localhost:8000',
@@ -30,4 +33,4 @@ app.include_router(router_user)
 app.include_router(router_auth)
 
 if __name__ == "__main__":
-    uvicorn.run('main:app', host='127.0.0.2', reload=True)
+    uvicorn.run('main:app', host='127.0.0.2', reload=True, workers=4,)

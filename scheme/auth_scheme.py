@@ -13,19 +13,30 @@ class UserRegister(BaseModel):
             raise ValueError('Passwords must match')
         return self
 
-
 class User(BaseModel):
-    username: str
-    token_author: str | None
     password: str
-    role: str | None = None
+    username: str
+    role_id: int = None
 
+class UserCreate(BaseModel):
+    username: str
+    password_hashed: str
+    role_id: str | None = None
+
+class UserInOut(BaseModel):
+    username: str
+    role_id: str | None = None
 
 class UserLogin(BaseModel):
     username: str
     password: str
 
-
 class Token(BaseModel):
     access_token: str
     token_type: str
+
+class Role(BaseModel):
+    id: int
+
+class RoleCreate(Role):
+    role_name: str

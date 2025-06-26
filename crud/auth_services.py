@@ -5,31 +5,27 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from crud.crud_base import CRUDBase
-from models.user_models import UserModel, RefreshTokensModel
+from models.user_models import UserModel, RefreshTokensModel, RoleModel
 from scheme.refresh_token_scheme import TokenUpdate, TokenCreate
-from scheme.auth_scheme import User
+from scheme.auth_scheme import Role, RoleCreate, UserCreate
 
 
-class UserCrud(CRUDBase[UserModel, User, User]):
+class UserCrud(CRUDBase[UserModel, UserCreate, UserCreate]):
 
     @classmethod
-    async def add_user(cls, data:User,session: AsyncSession) -> UserModel:
-        if data.token_author == 'super_secret':
-            role = 1
-        else:
-            role = 2
+    async def add_user(cls, data: UserCreate, session: AsyncSession) -> UserModel:
         user = UserModel(
             username=data.username,
             author_token=data.token_author,
             password_hashed=data.password,
-            role_id=role)
+            role_id=data.role_id)
         session.add(user)
         await session.commit()
         await session.refresh(user)
         return user
 
     @classmethod
-    async def get_user_by_name(cls,username: str,session: AsyncSession) -> (UserModel | None):
+    async def get_user_by_name(cls,username: str, session: AsyncSession) -> (UserModel | None):
         stmt = select(UserModel).filter_by(username=username)
         result = await session.execute(stmt)
 
@@ -56,3 +52,4 @@ class UserCrud(CRUDBase[UserModel, User, User]):
 
 user_cruds = UserCrud(UserModel)
 refresh_tokens_cruds = CRUDBase[RefreshTokensModel, TokenUpdate, TokenCreate](RefreshTokensModel)
+role_cruds = CRUDBase[RoleModel, Role, RoleCreate](RoleModel)

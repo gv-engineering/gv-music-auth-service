@@ -6,13 +6,13 @@ from jose import jwt, JWTError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from common.constants import SECRET_KEY, ALGORITHM, PUBLIC_KEY
-from crud.auth_services import user_cruds
-from database.init_bd import get_session
-from execption.custom_error import CredentialsException, InvalidTokenException, TokenJWTExpiredException
-from models.user_models import UserModel
-from routs.user_route import scheme_oauth
-from scheme.auth_scheme import UserCreate
+from app.common.constants import SECRET_KEY, ALGORITHM, PUBLIC_KEY
+from app.crud.auth_services import user_cruds
+from app.database.init_bd import get_session
+from app.execption.custom_error import CredentialsException, InvalidTokenException, TokenJWTExpiredException
+from app.models.user_models import UserModel
+from app.routs.user_route import scheme_oauth
+from app.scheme.auth_scheme import UserCreate
 
 
 async def verify_token(token: str = Depends(scheme_oauth)) -> type(scheme_oauth):

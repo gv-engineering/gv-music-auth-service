@@ -6,5 +6,6 @@ alembic/
 .env
 Dockerfile
 private.pem
-public.pem__pycache__/
+public.pem
+__pycache__/
 *.pyc

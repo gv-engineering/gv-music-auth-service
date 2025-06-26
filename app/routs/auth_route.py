@@ -9,15 +9,15 @@ from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from crud.auth_services import UserCrud, user_cruds, refresh_tokens_cruds
-from database.init_bd import get_session
-from execption.custom_error import InvalidTokenException, UserNotFoundException, UserAlreadyExistException, \
+from app.crud.auth_services import user_cruds, refresh_tokens_cruds
+from app.database.init_bd import get_session
+from app.execption.custom_error import InvalidTokenException, UserNotFoundException, UserAlreadyExistException, \
     TokenRefreshIsNotFoundException
-from middleware.auth_middleware import get_current_user, require_role
-from models.user_models import RefreshTokensModel, UserModel
-from scheme.auth_scheme import UserRegister, UserInOut
-from scheme.refresh_token_scheme import TokenCreate
-from services.auth_services import AuthService, create_token, create_refresh_token, create_register_token
+from app.middleware.auth_middleware import get_current_user, require_role
+from app.models.user_models import RefreshTokensModel, UserModel
+from app.scheme.auth_scheme import UserRegister, UserInOut
+from app.scheme.refresh_token_scheme import TokenCreate
+from app.services.auth_services import AuthService, create_token, create_refresh_token, create_register_token
 
 router = APIRouter(prefix='/auth')
 

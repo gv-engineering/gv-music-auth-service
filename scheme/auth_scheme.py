@@ -1,7 +1,6 @@
 from pydantic import BaseModel, model_validator, Field
 from typing_extensions import Self
 
-
 class UserRegister(BaseModel):
     username: str = Field(max_length=60)
     token_author: str | None = None

@@ -2,6 +2,8 @@ import datetime
 import hashlib
 import secrets
 from datetime import timedelta
+
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import selectinload
 
 import bcrypt
@@ -14,7 +16,7 @@ from models.user import UserModel
 from scheme.user import User, UserRegister, UserLogin
 from crud.user import user_cruds
 
-class UserServices:
+class AuthService:
 
     @classmethod
     def hash_password(cls,password: str) -> str:
@@ -36,7 +38,7 @@ class UserServices:
         return user
 
     @classmethod
-    async def auth_user(cls, data: UserLogin, session: AsyncSession) -> UserModel | None:
+    async def auth_user(cls, data: OAuth2PasswordRequestForm, session: AsyncSession) -> UserModel | None:
         user = await user_cruds.get_by_value(db=session, username=data.username, options=[selectinload(UserModel.role)])
         if user:
             if cls.verify_password(user.password_hashed, data.password):

@@ -5,9 +5,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from crud.crud_base import CRUDBase
-from models.user import UserModel, RefreshTokensModel
+from models.user_models import UserModel, RefreshTokensModel
 from scheme.refresh_token_scheme import TokenUpdate, TokenCreate
-from scheme.user import User
+from scheme.auth_scheme import User
 
 
 class UserCrud(CRUDBase[UserModel, User, User]):

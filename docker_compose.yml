@@ -12,7 +12,7 @@ services:
     networks:
       - backend
     ports:
-      - "8000:8000"  # Можно убрать наружу или поменять
+      - "127.0.0.1:8000:8000"  # Настройка под nginx на сервере
 
   db:
     image: postgres:16

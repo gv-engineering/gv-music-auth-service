@@ -1,4 +1,5 @@
 import colorama
+import argparse
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -6,6 +7,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from routs.user_route import router as router_user
 from routs.auth_route import router as router_auth
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--host', type=str, default='0.0.0.0')
+args = parser.parse_args()
 admin_id = None
 origins = [
     'http://127.0.0.2:8000',
@@ -30,4 +34,4 @@ app.include_router(router_user)
 app.include_router(router_auth)
 
 if __name__ == "__main__":
-    uvicorn.run('main:app', host='127.0.0.2', reload=True, workers=4,)
+    uvicorn.run('main:app', host=args.host, reload=True, workers=4,)

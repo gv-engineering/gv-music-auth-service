@@ -1,14 +1,18 @@
+import asyncio
+
 import colorama
 import argparse
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from models.user_models import create_tables
 from routs.user_route import router as router_user
 from routs.auth_route import router as router_auth
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--host', type=str, default='0.0.0.0')
+parser.add_argument('--init_db', type=bool, default=False)
 args = parser.parse_args()
 admin_id = None
 origins = [
@@ -34,4 +38,6 @@ app.include_router(router_user)
 app.include_router(router_auth)
 
 if __name__ == "__main__":
+    if args.init_db:
+        asyncio.run(create_tables())
     uvicorn.run('main:app', host=args.host, reload=True, workers=4,)

@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from database.init_bd import Base, engine
+from database.init_bd import Base, engine, get_session
 
 
 class UserModel(Base):
@@ -46,3 +46,14 @@ async def create_tables():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
+
+    session_generator = get_session()
+    session = await anext(session_generator)
+
+    async with session:
+        role_admin = RoleModel(role_name='admin')
+        role_user = RoleModel(role_name='user')
+        session.add_all([role_admin, role_user])
+        await session.commit()
+
+    await session_generator.aclose()
